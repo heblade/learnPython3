@@ -44,23 +44,23 @@ merged_summary_op = tf.summary.merge_all()
 ###Use 'with sess.as_default()' or pass an explicit session to 'eval(session=sess)'
 #set sess as default
 # 初始化会话并开始训练过程
-sess = tf.InteractiveSession()
-init = tf.global_variables_initializer()
-sess.run(init)
-if tf.gfile.Exists(logpath):
-    tf.gfile.DeleteRecursively(logpath)
-summary_writer = tf.summary.FileWriter(logpath, sess.graph)
+with tf.Session() as sess:
+    init = tf.global_variables_initializer()
+    sess.run(init)
+    if tf.gfile.Exists(logpath):
+        tf.gfile.DeleteRecursively(logpath)
+    summary_writer = tf.summary.FileWriter(logpath, sess.graph)
 
-for i in range(TRAINING_STEPS):
-    batch = mnist.train.next_batch(BATCH_SIZE)
-    sess.run(train_step, feed_dict={x:batch[0], y_:batch[1]})
-    summary_str = sess.run(merged_summary_op, feed_dict={x: batch[0], y_: batch[1]})
-    summary_writer.add_summary(summary_str, i)
+    for i in range(TRAINING_STEPS):
+        batch = mnist.train.next_batch(BATCH_SIZE)
+        sess.run(train_step, feed_dict={x:batch[0], y_:batch[1]})
+        summary_str = sess.run(merged_summary_op, feed_dict={x: batch[0], y_: batch[1]})
+        summary_writer.add_summary(summary_str, i)
 
-    if i%50 == 0:
-        print("Step: ", i, "Accuracy: ", sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+        if i%50 == 0:
+            print("Step: ", i, "Accuracy: ", sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
-print(accuracy.eval(session=sess, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+    print(accuracy.eval(session=sess, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 
 ### to view result graph by tensorboard, please input below command in cmd window:
 ### tensorboard --logdir /tmp/mnist_logs/
