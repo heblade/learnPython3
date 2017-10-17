@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="Css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Css/page.css" />
+
+    <script type="text/javascript" src="Script/bower_components/angular/angular.js"></script>
+    <script src="Script/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="Script/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <script type="text/javascript" src="Script/initial.js"> </script>
+    <script type="text/javascript" src="Script/index.js"> </script>
+    
+
+</head>
+<body  ng-app="myAppIndex" ng-controller="IndexCtrl">
+    
+    <div id="HeadDiv" ng-bind-html="HeadHtml"></div>
+
+    <!------>
+    <div class="content">
+        <div id="breadcrumbDiv">
+            <ul>
+                <li class="breadcrumbTip"><span class="paddingLeft_30">Home</span></li>
+            </ul>
+        </div>
+
+        <h3>Welcome to use Web DataManager</h3>
+        <div>
+            <img src="Image/theme.png" alt="theme" />
+        </div>
+
+    </div>
+
+    <!------>
+    <div id="HeadDiv" ng-bind-html="renderFooterHtml()"></div>
+
+</body>
+</html>
